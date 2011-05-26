@@ -26,9 +26,6 @@ public class Tweet implements Serializable{
 			this.name = name;
 		}
 
-
-		
-		
 	}
 	
 	public Tweet(){}
