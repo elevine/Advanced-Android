@@ -1,22 +1,16 @@
 package com.elevine.twitter;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -27,7 +21,8 @@ public class MainActivity extends ListActivity {
 	private static final String TWITTER_URL = "http://api.twitter.com/1/statuses/public_timeline.json";
 	private static final String LOCAL = "http://....../Android/twitter.txt";
 	private static final String TAG = "MainActivity";
-
+	public static final String EXTRA_TWEETS = "extra_tweets";
+	
 	private ProgressDialog pd = null;
 	private List<Tweet> tweets = new ArrayList<Tweet>();
 	 
@@ -37,11 +32,19 @@ public class MainActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		new FetchTimelineTask().execute();
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras.get(EXTRA_TWEETS) != null){
+			this.tweets = (List<Tweet>)extras.get(EXTRA_TWEETS);
+		}
+		else{
+			new FetchTimelineTask().execute();
+		}
 	}
 
 	private class FetchTimelineTask extends AsyncTask<Void, Integer, Void> {
@@ -58,40 +61,14 @@ public class MainActivity extends ListActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			HttpClient client = new DefaultHttpClient();
-			HttpGet request = new HttpGet(LOCAL);
+			HttpGet request = new HttpGet(TWITTER_URL);
 			HttpResponse response;
 			try {
 				response = client.execute(request);
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(response.getEntity().getContent()));
-
-				StringBuilder responseBody = new StringBuilder();
-				String nextLine = null;
-
-				while ((nextLine = reader.readLine()) != null) {
-					responseBody.append(nextLine);
-
-				}
-				JSONArray jsonResponse = new JSONArray(responseBody.toString());
-
-				for (int index = 0; index < jsonResponse.length(); index++) {
-					JSONObject jo = jsonResponse.getJSONObject(index);
-					String username = jo.getJSONObject("user").getString("screen_name");
-					String image = jo.getJSONObject("user").getString("profile_image_url");
-					//tweets.add(new Tweet(jo.getString("text"),username, image));
-					
-					try {
-						get(100, TimeUnit.MILLISECONDS);
-					} catch (ExecutionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (TimeoutException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					publishProgress(index, jsonResponse.length());
-				}
+				ObjectMapper mapper = new ObjectMapper();
+				Tweet[] tweetArray = mapper.readValue(response.getEntity().getContent(), Tweet[].class);
+				
+				tweets = Arrays.asList(tweetArray);
 
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
@@ -99,13 +76,7 @@ public class MainActivity extends ListActivity {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			return null;
 		}
 
@@ -115,28 +86,17 @@ public class MainActivity extends ListActivity {
 			super.onPostExecute(result);
 
 			pd.dismiss();
-			pd = null;
 			
 			TweetAdapter ta = new TweetAdapter(MainActivity.this, tweets);
 			setListAdapter(ta);
 			
 		}
 
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			if (values[0] == 0) {
-				pd.hide();
-				pd = new ProgressDialog(MainActivity.this);
-				pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				pd.setMessage("Processing tweets");
-				pd.setCancelable(false);
-				pd.setMax(values[1]);
-				pd.show();
-			}
-
-			pd.setProgress(values[0]);
-
-		}
-
 	}
+
+	public List<Tweet> getTweets() {
+		return tweets;
+	}
+	
+	
 }
