@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.elevine.twitter.widget.TweetAdapter;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;

@@ -18,6 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.elevine.twitter.widget.TweetAdapter;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
