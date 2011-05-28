@@ -1,28 +1,17 @@
 package com.elevine.twitter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.web.client.RestTemplate;
-
-import com.elevine.twitter.widget.TweetAdapter;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.elevine.twitter.widget.TweetAdapter;
 
 public class MainActivity extends ListActivity {
 	private static final String TWITTER_URL = "https://api.twitter.com/1/statuses/public_timeline.json";
@@ -30,7 +19,7 @@ public class MainActivity extends ListActivity {
 	private static final String TAG = "MainActivity";
 	public static final String EXTRA_TWEETS = "extra_tweets";
 	private RestTemplate restTemplate = new RestTemplate();
-
+	
 	private ProgressDialog pd = null;
 	private List<Tweet> tweets = new ArrayList<Tweet>();
 
@@ -68,7 +57,6 @@ public class MainActivity extends ListActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-
 			Tweet[] tweetArray = restTemplate.getForObject(LOCAL,
 					Tweet[].class);
 			tweets = Arrays.asList(tweetArray);
@@ -83,8 +71,7 @@ public class MainActivity extends ListActivity {
 
 			pd.dismiss();
 
-			TweetAdapter ta = new TweetAdapter(MainActivity.this, tweets,
-					R.layout.tweet_row);
+			TweetAdapter ta = new TweetAdapter(MainActivity.this, tweets, R.layout.tweet_row);
 			setListAdapter(ta);
 
 		}

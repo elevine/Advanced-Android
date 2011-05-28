@@ -6,7 +6,7 @@
   android:orientation="vertical"
   xmlns:greendroid="http://schemas.android.com/apk/res/com.cyrilmottier.android.gdcatalog">
   
-  	<ImageView android:id="@+id/tweet_row_image"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/tweet"/>
+  	<greendroid.widget.AsyncImageView android:id="@+id/tweet_row_image"  android:layout_width="wrap_content" android:layout_height="wrap_content" />
   	<TextView android:id="@+id/tweet_row_user_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textStyle="bold" android:textSize="16sp" android:layout_margin="5dp"/>
   	<TextView android:id="@+id/tweet_row_message"  android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="14sp" android:layout_margin="5dp"/>
   	
