@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Twitter Client - LAB1"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Twitter Client - LAB1 (Jackson)"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/Users/elevine/Projects/Advanced-Android/LAB1/Twitter Client/lib/jackson-core-asl-1.8.0.jar"/>
 	<classpathentry kind="lib" path="/Users/elevine/Projects/Advanced-Android/LAB1/Twitter Client/lib/jackson-mapper-asl-1.8.0.jar"/>

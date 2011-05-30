@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Twitter Client - LAB1"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Twitter Client - LAB1 (Jackson)"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
