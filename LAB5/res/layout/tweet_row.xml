@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:greendroid="http://schemas.android.com/apk/res/com.elevine.twitter"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  >
+  android:padding="10dp" android:paddingLeft="5dp">
   
-  	<greendroid.widget.AsyncImageView greendroid:defaultSrc="@drawable/tweet" android:id="@+id/tweet_row_image"  android:layout_width="75dp" android:layout_height="75dp"  />
-  	<TextView android:id="@+id/tweet_row_user_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textStyle="bold" android:textSize="16sp" android:layout_margin="5dp"/>
-  	<TextView android:id="@+id/tweet_row_message"  android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="14sp" android:layout_margin="5dp"/>
+  	<greendroid.widget.AsyncImageView greendroid:defaultSrc="@drawable/tweet" android:id="@+id/tweet_row_image"  android:layout_width="50dp" android:layout_height="50dp"  />
+  	<TextView android:layout_height="wrap_content" android:id="@+id/tweet_row_user_name" android:layout_width="wrap_content" android:layout_margin="5dp" android:textStyle="bold" android:textSize="16sp" android:layout_toRightOf="@+id/tweet_row_image" android:layout_alignTop="@+id/tweet_row_image" android:layout_alignBottom="@+id/tweet_row_image" android:gravity="center"></TextView>
+  	<TextView android:layout_height="wrap_content" android:id="@+id/tweet_row_message" android:layout_width="fill_parent" android:layout_margin="5dp" android:textSize="14sp" android:layout_below="@+id/tweet_row_image" android:layout_alignLeft="@+id/tweet_row_image" ></TextView>
   	
-</LinearLayout>
+</RelativeLayout>

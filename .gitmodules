@@ -1,3 +1,6 @@
 [submodule "GreenDroid"]
 	path = GreenDroid
 	url = git://github.com/cyrilmottier/GreenDroid.git
+[submodule "android-mapviewballoons"]
+	path = android-mapviewballoons
+	url = https://github.com/jgilfelt/android-mapviewballoons.git

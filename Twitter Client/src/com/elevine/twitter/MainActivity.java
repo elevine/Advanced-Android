@@ -26,7 +26,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 public class MainActivity extends ListActivity {
-	private static final String TWITTER_URL = "http://api.twitter.com/1/statuses/public_timeline.json";
+	private static final String TWITTER_URL = "http://twitter-elevine.apigee.com/1/statuses/public_timeline.json";
 	private static final String LOCAL = "http://10.0.2.2:8000/public_timeline.json";
 	private static final String TAG = "MainActivity";
 

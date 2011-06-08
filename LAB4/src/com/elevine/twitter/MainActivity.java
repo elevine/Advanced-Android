@@ -16,7 +16,7 @@ import android.os.Bundle;
 import com.elevine.twitter.widget.TweetAdapter;
 
 public class MainActivity extends GDListActivity {
-	private static final String TWITTER_URL = "https://api.twitter.com/1/statuses/public_timeline.json";
+	private static final String TWITTER_URL = "http://twitter-elevine.apigee.com/1/statuses/public_timeline.json";
 	private static final String LOCAL = "http://10.0.2.2:8000/public_timeline.json";
 	private static final String TAG = "MainActivity";
 	public static final String EXTRA_TWEETS = "extra_tweets";
