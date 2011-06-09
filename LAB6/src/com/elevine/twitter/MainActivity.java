@@ -12,10 +12,12 @@ import java.util.List;
 import org.springframework.web.client.RestTemplate;
 
 import android.content.ContentValues;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -31,7 +33,7 @@ public class MainActivity extends GDListActivity {
 	public static final String EXTRA_TWEETS = "extra_tweets";
 	private RestTemplate restTemplate = new RestTemplate();
 	private String[] tweetColumns = {TweetColumns._ID, TweetColumns.NAME, TweetColumns.TEXT, TweetColumns.PROFILE_IMAGE_URL};
-	
+	private Handler handler = new Handler();
 	private TweetCursorAdapter tweetCursorAdapter = null;
 	private LoaderActionBarItem loaderItem = null;
 	
@@ -42,6 +44,7 @@ public class MainActivity extends GDListActivity {
 
 			
 		loaderItem = (LoaderActionBarItem)addActionBarItem(Type.Refresh, R.id.action_bar_refresh);
+		getContentResolver().registerContentObserver(TweetProvider.CONTENT_URI, true, new TweetContentObserver(handler));
 	}
 
 
@@ -88,7 +91,7 @@ public class MainActivity extends GDListActivity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			loaderItem.setLoading(false);
-			tweetCursorAdapter.getCursor().requery();
+			//tweetCursorAdapter.getCursor().requery();
 		}
 
 	}
@@ -127,9 +130,28 @@ public class MainActivity extends GDListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getAlphabeticShortcut() == 'c'){
 			getContentResolver().delete(TweetProvider.CONTENT_URI, null, null);
-			tweetCursorAdapter.getCursor().requery();
+			//tweetCursorAdapter.getCursor().requery();
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	
+	
+	private class TweetContentObserver extends ContentObserver{
+
+		public TweetContentObserver(Handler handler) {
+			super(handler);
+		}
+		
+		@Override
+		public void onChange(boolean selfChange) {
+			// TODO Auto-generated method stub
+			super.onChange(selfChange);
+			tweetCursorAdapter.getCursor().requery();
+		}
+		
+	}
+	
 	
 }
