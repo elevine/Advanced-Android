@@ -47,6 +47,7 @@ public class MainActivity extends ListActivity {
 			Bundle extras = getIntent().getExtras();
 			if (extras.get(EXTRA_TWEETS) != null) {
 				this.tweets = (List<Tweet>) extras.get(EXTRA_TWEETS);
+				setListAdapter(new TweetAdapter(MainActivity.this, tweets, R.layout.tweet_row));
 			}
 		} else {
 			new FetchTimelineTask().execute();
